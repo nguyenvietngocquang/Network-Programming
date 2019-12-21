@@ -23,7 +23,7 @@ enum
     N_COLUMNS
 };
 
-void Show_message(GtkWidget *parent, GtkMessageType type,  char *mms, char *content)
+void Show_message(GtkWidget *parent, GtkMessageType type, char *mms, char *content)
 {
     GtkWidget *mdialog;
     mdialog = gtk_message_dialog_new(GTK_WINDOW(parent),
@@ -96,8 +96,6 @@ static gboolean make_move (GtkWidget *widget, GdkEvent *event, gpointer data)
     {
         Show_message(window_main, GTK_MESSAGE_ERROR, "ERROR", "Not your turn, wait opponent");
     }
-    // if(flag_win == 1) {Show_message(window_main,GTK_MESSAGE_INFO,"Congratulations","You win game!");}
-    // else if(flag_win == 0) {Show_message(window_main,GTK_MESSAGE_INFO,"Opps","You lose game!");}
     return TRUE;
 }
 
@@ -243,7 +241,6 @@ void hide_room_select()
             cBoardLoc [x][y] = 'E';
         }
     }
-
 }
 
 void wait_player_window(char *data)
@@ -535,7 +532,6 @@ void init_choose_room_window(char *data)
     }
     gtk_widget_show (table);
     gtk_widget_show (window_choose_room);
-
 }
 
 void add_to_list(GtkWidget *tlist, const gchar *str)

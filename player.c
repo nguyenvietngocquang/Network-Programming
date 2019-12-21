@@ -51,7 +51,7 @@ void setPlayerName(player *list, char *name, int i)
         currentNode = currentNode->next;
         if (i == currentNode->number)
         {
-            printf("client %d set name: %s\n", i, name);
+            printf("Client %d set name: %s\n", i, name);
             strcpy(currentNode->name, name);
         }
     }
@@ -135,7 +135,6 @@ player *playerDisconnect(player *list, int number)
             }
 
             free(currentNode);
-
         }
     }
     return list;

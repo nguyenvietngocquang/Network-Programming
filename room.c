@@ -80,8 +80,8 @@ int inRoom(int player, room roomList[])
         }
     }
     return -1;
-
 }
+
 void printRoomList(room roomList[])
 {
     int i;
@@ -95,6 +95,7 @@ void printRoomList(room roomList[])
         }
     }
 }
+
 int startGame(room roomList[], int roomNumber)
 {
     if (roomList[roomNumber].Player1 != 0 && roomList[roomNumber].Player2 != 0)

@@ -1,4 +1,4 @@
-typedef struct player1
+typedef struct player
 {
     int number;
     char ip_addr[20];
