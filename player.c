@@ -22,11 +22,11 @@ player *addNewPlayer(player *list, char *ip_addr, int port, char *name, int numb
     currentNode = list;
     while (1)
     {
-        if(currentNode->next == NULL) break;
+        if (currentNode->next == NULL) break;
         currentNode = currentNode->next;
     }
 
-    if ( ip_addr != NULL && name != NULL)
+    if (ip_addr != NULL && name != NULL)
     {
         player *newPl;
         newPl = (player *)malloc(sizeof(player));
@@ -39,7 +39,6 @@ player *addNewPlayer(player *list, char *ip_addr, int port, char *name, int numb
     }
 
     return list;
-
 }
 
 void setPlayerName(player *list, char *name, int i)
@@ -47,7 +46,7 @@ void setPlayerName(player *list, char *name, int i)
     player *currentNode = list;
     while (1)
     {
-        if(currentNode->next == NULL) break;
+        if (currentNode->next == NULL) break;
         currentNode = currentNode->next;
         if (i == currentNode->number)
         {

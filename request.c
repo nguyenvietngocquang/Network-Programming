@@ -1,7 +1,7 @@
 void send_name(char *send_buffer)
 {
     char setname_cmd[LENGTH_MSG];
-    sprintf(setname_cmd, "/setname %s", send_buffer);
+    sprintf(setname_cmd, "/setName %s", send_buffer);
     send(clientSocket, setname_cmd, strlen(setname_cmd) + 1, 0);
 }
 

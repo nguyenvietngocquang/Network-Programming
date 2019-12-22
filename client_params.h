@@ -7,11 +7,11 @@
 #define ROOM_SIZE 2
 #define ROOM_NUM 10
 
-typedef struct Room1
+typedef struct Room
 {
     int id;
     int client_num;
-} Room1;
+} Room;
 
 typedef struct Client
 {
@@ -21,7 +21,7 @@ typedef struct Client
 } Client;
 
 int clientSocket;
-Room1 room_arr[ROOM_NUM];
+Room room_arr[ROOM_NUM];
 struct Queue *responses;
 int iLocation [2];
 int flag_turn;

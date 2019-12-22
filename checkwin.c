@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "testwin.h"
+#include "checkwin.h"
 
 int checkWin(int x, int y, char board[N][N], char flagWin)
 {

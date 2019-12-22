@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <gtk/gtk.h>
 #include "close.h"
-#include "testwin.h"
+#include "checkwin.h"
 #include "interface.h"
 #include "client_params.h"
 
@@ -15,7 +15,6 @@ char cBoardLoc[10][10] = { {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, {
     {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'},
     {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}, {'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}
 };
-char cTurn = 'X';
 
 enum
 {
@@ -23,7 +22,7 @@ enum
     N_COLUMNS
 };
 
-void Show_message(GtkWidget *parent, GtkMessageType type, char *mms, char *content)
+void show_message(GtkWidget *parent, GtkMessageType type, char *mms, char *content)
 {
     GtkWidget *mdialog;
     mdialog = gtk_message_dialog_new(GTK_WINDOW(parent),
@@ -58,15 +57,13 @@ static gboolean make_move (GtkWidget *widget, GdkEvent *event, gpointer data)
     GtkWidget *player_img;
     GtkWidget *dialog_turn, *dialog_invalid;
     GtkResponseType result;
-    char cImgLoc [16] = "./images/";
-    strcat (cImgLoc, &cTurn);
-    strcat (cImgLoc, ".png");
+    char cImgLoc [16] = "./images/O.png";
     if(flag_turn == 1)
     {
         if (cBoardLoc [iLocation [0]][iLocation [1]] == 'E')
         {
 
-            cBoardLoc [iLocation [0]][iLocation [1]] = cTurn;
+            cBoardLoc [iLocation [0]][iLocation [1]] = 'O';
             send_play();
             // thực hiện gửi nhận server chỗ này
             while (x < iLocation [0])
@@ -89,12 +86,12 @@ static gboolean make_move (GtkWidget *widget, GdkEvent *event, gpointer data)
         else
         {
             g_print ("Invalid move!\n");
-            Show_message(window_main, GTK_MESSAGE_ERROR, "ERROR", "An invalid move, try again!");
+            show_message(window_main, GTK_MESSAGE_ERROR, "ERROR", "An invalid move, try again!");
         }
     }
     else
     {
-        Show_message(window_main, GTK_MESSAGE_ERROR, "ERROR", "Not your turn, wait opponent");
+        show_message(window_main, GTK_MESSAGE_ERROR, "ERROR", "Not your turn, wait opponent!");
     }
     return TRUE;
 }
@@ -107,7 +104,7 @@ void set_move(char *data)
     GtkWidget *player_img;
     GtkWidget *dialog_win, *dialog_invalid;
     GtkResponseType result;
-    char cImgLoc [16] = "./images/O.png";
+    char cImgLoc [16] = "./images/X.png";
 
     int temp_data = atoi(data);
     x2 = temp_data % 10;
@@ -115,7 +112,7 @@ void set_move(char *data)
 
     if (cBoardLoc [x2][y2] == 'E')
     {
-        cBoardLoc [x2][y2] = 'O';
+        cBoardLoc [x2][y2] = 'X';
         // thực hiện gửi nhận server chỗ này
         while (x < x2)
         {
@@ -252,7 +249,7 @@ void wait_player_window(char *data)
         window_wait = gtk_window_new (GTK_WINDOW_TOPLEVEL);
         g_signal_connect (G_OBJECT (window_wait), "delete_event", G_CALLBACK (delete_event), NULL);
         g_signal_connect (G_OBJECT (window_wait), "destroy", G_CALLBACK (destroy), NULL);
-        gtk_window_set_title (GTK_WINDOW (window_wait), "Caro");
+        gtk_window_set_title (GTK_WINDOW (window_wait), "Wait Player");
         gtk_window_set_default_size(GTK_WINDOW(window_wait), 600, 300);
         gtk_window_set_position(GTK_WINDOW(window_wait), GTK_WIN_POS_CENTER);
         gtk_container_set_border_width (GTK_CONTAINER (window_wait), 15);
@@ -263,7 +260,7 @@ void wait_player_window(char *data)
         const char *format = "<span font=\"25\" color=\"blue\" >\%s</span>";
         char *markup;
 
-        markup = g_markup_printf_escaped (format, "Waiting anothor player");
+        markup = g_markup_printf_escaped (format, "Waiting another player...");
         gtk_label_set_markup (GTK_LABEL (label_wait), markup);
         g_free (markup);
         gtk_fixed_put (GTK_FIXED (fixed_wait), label_wait, 140, 100);
@@ -288,7 +285,7 @@ void init_play_window(char *data)
     int iYPos = 0;
 
     GtkWidget *image_board;
-    GtkWidget *scrolling, *label_player;
+    GtkWidget *scrolling, *label_player, *label_symbol;
     GtkWidget *send_button, *newgame_button, *back_button;
 
     if(wait_key == 1)
@@ -299,7 +296,7 @@ void init_play_window(char *data)
     window_main = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     g_signal_connect (G_OBJECT (window_main), "delete_event", G_CALLBACK (delete_event), NULL);
     g_signal_connect (G_OBJECT (window_main), "destroy", G_CALLBACK (destroy), NULL);
-    gtk_window_set_title (GTK_WINDOW (window_main), "Caro");
+    gtk_window_set_title (GTK_WINDOW (window_main), "Play Caro");
     gtk_window_set_position(GTK_WINDOW(window_main), GTK_WIN_POS_CENTER);
     gtk_container_set_border_width (GTK_CONTAINER (window_main), 15);
 
@@ -336,13 +333,13 @@ void init_play_window(char *data)
 
     back_button = gtk_button_new_with_label ("Back");
     gtk_widget_set_size_request(back_button, 100, 50);
-    gtk_fixed_put (GTK_FIXED (fixed_main), back_button, 700, 500);
+    gtk_fixed_put (GTK_FIXED (fixed_main), back_button, 700, 530);
 
     if(strcmp(data, "wait_key") != 0)
     {
 
         label_player = gtk_label_new("");
-        const char *format = "<span font=\"15\" color=\"red\">Your opponent: \%s</span>";
+        const char *format = "<span font=\"15\" color=\"blue\">Your opponent: \%s</span>";
         char *markup;
 
         markup = g_markup_printf_escaped (format, data);
@@ -352,6 +349,12 @@ void init_play_window(char *data)
         gtk_widget_show (label_player);
 
     }
+
+    label_symbol = gtk_label_new("");
+    const char *format = "<span font=\"15\" color=\"red\">Your symbol: O</span>";
+    gtk_label_set_markup (GTK_LABEL (label_symbol), format);
+    gtk_fixed_put (GTK_FIXED (fixed_main), label_symbol, 630, 480);
+
 
     g_signal_connect(G_OBJECT(back_button), "clicked", G_CALLBACK(on_back_button_clicked), NULL);
 
@@ -387,7 +390,7 @@ void init_play_window(char *data)
     gtk_widget_show (back_button);
     gtk_widget_show (entry_mes);
     gtk_widget_show (window_main);
-
+    gtk_widget_show (label_symbol);
 }
 
 void init_home_window ()
@@ -503,7 +506,7 @@ void init_choose_room_window(char *data)
     window_choose_room = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     g_signal_connect (G_OBJECT (window_choose_room), "delete_event", G_CALLBACK (delete_event), NULL);
     g_signal_connect (G_OBJECT (window_choose_room), "destroy", G_CALLBACK (destroy), NULL);
-    gtk_window_set_title (GTK_WINDOW (window_choose_room), "Caro");
+    gtk_window_set_title (GTK_WINDOW (window_choose_room), "Choose Room");
     gtk_window_set_default_size(GTK_WINDOW(window_choose_room), 1000, 600);
     gtk_window_set_position(GTK_WINDOW(window_choose_room), GTK_WIN_POS_CENTER);
 
@@ -761,7 +764,7 @@ void on_set_button_clicked()
         gtk_widget_hide(set_button);
         gtk_widget_hide(entry_name);
         label_name = gtk_label_new("");
-        const char *format = "<span font=\"16\" color=\"red\" style=\"italic\">\%s</span>";
+        const char *format = "<span font=\"16\" color=\"red\">\%s</span>";
         char *markup;
 
         markup = g_markup_printf_escaped (format, send_buffer);
@@ -779,7 +782,7 @@ void on_set_button_clicked()
     }
     else
     {
-        Show_message(window_home, GTK_MESSAGE_ERROR, "ERROR", "Invalid name, try again!");
+        show_message(window_home, GTK_MESSAGE_ERROR, "ERROR", "Invalid name, try again!");
     }
 
 }
@@ -796,7 +799,7 @@ void init_result_game_window()
     window_result = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     g_signal_connect (G_OBJECT (window_result), "delete_event", G_CALLBACK (delete_event), NULL);
     g_signal_connect (G_OBJECT (window_result), "destroy", G_CALLBACK (destroy), NULL);
-    gtk_window_set_title (GTK_WINDOW (window_result), "RESULT");
+    gtk_window_set_title (GTK_WINDOW (window_result), "Result");
     gtk_window_set_default_size(GTK_WINDOW(window_result), 350, 200);
     gtk_window_set_position(GTK_WINDOW(window_result), GTK_WIN_POS_CENTER);
 
@@ -813,7 +816,7 @@ void init_result_game_window()
 
 void win_game ()
 {
-    const char *format = "<span font=\"15\" color=\"blue\" >\%s</span>";
+    const char *format = "<span font=\"15\" color=\"red\" >\%s</span>";
     char *markup;
 
     markup = g_markup_printf_escaped (format, "You win!");

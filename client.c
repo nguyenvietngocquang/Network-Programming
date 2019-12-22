@@ -90,7 +90,6 @@ gboolean timer_exe(gpointer p)
         {
             data = get_data(msg);
             set_message(data);
-
         }
         if (strstr(msg, "wait_player"))
         {

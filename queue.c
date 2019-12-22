@@ -3,6 +3,7 @@
 #include <string.h>
 #include <gtk/gtk.h>
 GMutex queueMutex;
+
 // A linked list (LL) node to store a queue entry
 struct QNode
 {
@@ -54,6 +55,7 @@ void enQueue(struct Queue *q, char *k)
     q->rear = temp;
     g_mutex_unlock(&queueMutex);
 }
+
 void displayQueue(struct Queue *q)
 {
     struct QNode *temp = q->front;
@@ -63,6 +65,7 @@ void displayQueue(struct Queue *q)
         temp = temp->next;
     }
 }
+
 // Function to remove a key from given queue q
 struct QNode *deQueue(struct Queue *q)
 {

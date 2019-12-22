@@ -24,7 +24,7 @@ static gboolean get_x_loc (GtkWidget *widget, GdkEvent *event, gpointer data);
 
 static gboolean get_y_loc (GtkWidget *widget, GdkEvent *event, gpointer data);
 
-void Show_message(GtkWidget *parent, GtkMessageType type,  char *mms, char *content);
+void show_message(GtkWidget *parent, GtkMessageType type,  char *mms, char *content);
 
 static gboolean make_move (GtkWidget *widget, GdkEvent *event, gpointer data);
 
