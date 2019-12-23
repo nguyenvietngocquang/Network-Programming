@@ -258,8 +258,8 @@ int main()
                                             }
                                         }
                                         roomList[roomNumber].turn = roomList[roomNumber].Player1;
-                                        send(roomList[roomNumber].Player1, "your_turn: ", strlen("your_turn"), 0);
-                                        send(roomList[roomNumber].Player2, "opponent_turn: ", strlen("opponent_turn"), 0);
+                                        send(roomList[roomNumber].Player1, "your_turn", strlen("your_turn"), 0);
+                                        send(roomList[roomNumber].Player2, "opponent_turn", strlen("opponent_turn"), 0);
                                     }
 
                                 }
@@ -306,15 +306,15 @@ int main()
                                     send(roomList[playersRoom].Player2, response, strlen(response), 0);
                                     if(bWon == 1)
                                     {
-                                        send(roomList[roomNumber].Player1, "you_won_game: ", strlen("you_won_game: "), 0);
-                                        send(roomList[roomNumber].Player2, "you_lose_game: ", strlen("you_lose_game: "), 0);
+                                        send(roomList[roomNumber].Player1, "you_won_game", strlen("you_won_game"), 0);
+                                        send(roomList[roomNumber].Player2, "you_lose_game", strlen("you_lose_game"), 0);
                                         puts("Player 1 win");
                                     }
                                     else
                                     {
                                         roomList[roomNumber].turn = roomList[roomNumber].Player2;
-                                        send(roomList[roomNumber].Player2, "your_turn: ", strlen("your_turn"), 0);
-                                        send(roomList[roomNumber].Player1, "opponent_turn: ", strlen("opponent_turn") + 1, 0);
+                                        send(roomList[roomNumber].Player2, "your_turn", strlen("your_turn"), 0);
+                                        send(roomList[roomNumber].Player1, "opponent_turn", strlen("opponent_turn") + 1, 0);
                                     }
 
                                 }
@@ -326,15 +326,15 @@ int main()
                                     send(roomList[playersRoom].Player1, response, strlen(response), 0);
                                     if(bWon == 1)
                                     {
-                                        send(roomList[roomNumber].Player2, "you_won_game: ", strlen("you_won_game: "), 0);
-                                        send(roomList[roomNumber].Player1, "you_lose_game: ", strlen("you_lose_game: "), 0);
+                                        send(roomList[roomNumber].Player2, "you_won_game", strlen("you_won_game"), 0);
+                                        send(roomList[roomNumber].Player1, "you_lose_game", strlen("you_lose_game"), 0);
                                         puts("Player 2 win");
                                     }
                                     else
                                     {
                                         roomList[roomNumber].turn = roomList[roomNumber].Player1;
-                                        send(roomList[roomNumber].Player1, "your_turn: ", strlen("your_turn"), 0);
-                                        send(roomList[roomNumber].Player2, "opponent_turn: ", strlen("opponent_turn"), 0);
+                                        send(roomList[roomNumber].Player1, "your_turn", strlen("your_turn"), 0);
+                                        send(roomList[roomNumber].Player2, "opponent_turn", strlen("opponent_turn"), 0);
                                     }
                                 }
                             }

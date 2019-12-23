@@ -789,7 +789,6 @@ void on_set_button_clicked()
 
 void server_respond_choose_room_button(char *data)
 {
-    printf("test\n");
     gtk_widget_hide(window_home);
     init_choose_room_window(data);
 }

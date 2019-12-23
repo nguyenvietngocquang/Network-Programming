@@ -21,7 +21,6 @@
 #include "queue.c"
 
 flag_turn = 1;
-flag_win = -1;
 
 char *get_data(char command[])
 {
@@ -76,13 +75,10 @@ gboolean timer_exe(gpointer p)
         if (strstr(msg, "room_list"))
         {
             data = get_data(msg);
-            printf("%s\n", msg);
-            puts(data);
             server_respond_choose_room_button(data);
         }
         if (strstr(msg, "join_room_error"))
         {
-            puts(msg);
             init_result_game_window();
             room_full_notice();
         }
@@ -104,19 +100,15 @@ gboolean timer_exe(gpointer p)
         if (strstr(msg, "new_play"))
         {
             data = get_data(msg);
-            puts(data);
-            printf("\n");
             set_move(data);
         }
         if (strstr(msg, "your_turn"))
         {
             flag_turn = 1;
-            printf("turn: %d\n", flag_turn );
         }
         if (strstr(msg, "opponent_turn"))
         {
             flag_turn = 0;
-            printf("turn: %d\n", flag_turn );
         }
         if (strstr(msg, "you_won_game"))
         {
