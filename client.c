@@ -52,12 +52,6 @@ void recv_msg()
         puts(receive_message);
         enQueue(responses, receive_message);
     }
-    else if (receive == 0)
-    {
-    }
-    else
-    {
-    }
 }
 
 gboolean timer_exe(gpointer p)

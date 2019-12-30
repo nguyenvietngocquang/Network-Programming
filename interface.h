@@ -42,16 +42,6 @@ void init_home_window ();
 
 void init_choose_room_window();
 
-void add_to_list(GtkWidget *tlist, const gchar *str);
-
-void append_item(GtkWidget *widget, gpointer entry);
-
-void remove_item(GtkWidget *widget, gpointer selection);
-
-void remove_all(GtkWidget *widget, gpointer selection);
-
-void init_list(GtkWidget *tlist);
-
 void on_button_send_clicked(GtkWidget *w, gpointer data);
 
 void on_choose_room_button_clicked();
@@ -67,8 +57,6 @@ void on_newgame_button_clicked();
 void on_exit_button_clicked();
 
 void on_set_button_clicked();
-
-void close_window_main();
 
 void room_full_notice();
 
