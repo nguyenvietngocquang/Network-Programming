@@ -338,7 +338,7 @@ void init_play_window(char *data)
     {
 
         label_player = gtk_label_new("");
-        const char *format = "<span font=\"15\" color=\"yellow\">Your opponent: \%s</span>";
+        const char *format = "<span font=\"15\" color=\"blue\">Your opponent: \%s</span>";
         char *markup;
 
         markup = g_markup_printf_escaped (format, data);
