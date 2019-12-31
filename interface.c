@@ -284,7 +284,7 @@ void init_play_window(char *data)
     int iXPos = 0;
     int iYPos = 0;
 
-    GtkWidget *image_board, *image;
+    GtkWidget *image_board;
     GtkWidget *scrolling, *label_player, *label_symbol;
     GtkWidget *send_button, *newgame_button, *back_button;
 
@@ -305,9 +305,6 @@ void init_play_window(char *data)
     fixed_main = gtk_fixed_new ();
     gtk_container_add (GTK_CONTAINER (window_main), fixed_main);
     gtk_fixed_put (GTK_FIXED (fixed_main), image_board, 0, 0);
-
-    image = gtk_image_new_from_file("./images/background.jpg");
-    gtk_container_add(GTK_CONTAINER(fixed_main), image);
 
     view = gtk_text_view_new();
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(view), GTK_WRAP_WORD);
