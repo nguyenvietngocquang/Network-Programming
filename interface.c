@@ -284,7 +284,7 @@ void init_play_window(char *data)
     int iXPos = 0;
     int iYPos = 0;
 
-    GtkWidget *image_board;
+    GtkWidget *image_board, *image;
     GtkWidget *scrolling, *label_player, *label_symbol;
     GtkWidget *send_button, *newgame_button, *back_button;
 
@@ -300,12 +300,14 @@ void init_play_window(char *data)
     gtk_window_set_position(GTK_WINDOW(window_main), GTK_WIN_POS_CENTER);
     gtk_container_set_border_width (GTK_CONTAINER (window_main), 15);
 
-
     image_board = gtk_image_new_from_file ("./images/caro.png");
 
     fixed_main = gtk_fixed_new ();
     gtk_container_add (GTK_CONTAINER (window_main), fixed_main);
     gtk_fixed_put (GTK_FIXED (fixed_main), image_board, 0, 0);
+
+    image = gtk_image_new_from_file("./images/background.jpg");
+    gtk_container_add(GTK_CONTAINER(fixed_main), image);
 
     view = gtk_text_view_new();
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(view), GTK_WRAP_WORD);
@@ -339,7 +341,7 @@ void init_play_window(char *data)
     {
 
         label_player = gtk_label_new("");
-        const char *format = "<span font=\"15\" color=\"blue\">Your opponent: \%s</span>";
+        const char *format = "<span font=\"15\" color=\"yellow\">Your opponent: \%s</span>";
         char *markup;
 
         markup = g_markup_printf_escaped (format, data);
@@ -412,7 +414,7 @@ void init_home_window ()
     fixed_home = gtk_fixed_new ();
     gtk_container_add (GTK_CONTAINER (window_home), fixed_home);
 
-    image = gtk_image_new_from_file("./images/background.png");
+    image = gtk_image_new_from_file("./images/background.jpg");
     gtk_container_add(GTK_CONTAINER(fixed_home), image);
 
     entry_name = gtk_entry_new ();
@@ -677,7 +679,7 @@ void on_set_button_clicked()
         gtk_widget_hide(set_button);
         gtk_widget_hide(entry_name);
         label_name = gtk_label_new("");
-        const char *format = "<span font=\"16\" color=\"red\">\%s</span>";
+        const char *format = "<span font=\"16\" color=\"yellow\">\%s</span>";
         char *markup;
 
         markup = g_markup_printf_escaped (format, send_buffer);
